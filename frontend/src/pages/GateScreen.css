@@ -1,0 +1,90 @@
+.gate-container {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 24px;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.direction-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.preview-box img {
+  max-width: 100%;
+  max-height: 300px;
+  margin: 16px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 10px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.result-box {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.status-granted {
+  background-color: #dcfce7;
+  border: 2px solid #22c55e;
+  color: #15803d;
+}
+
+.status-denied {
+  background-color: #fee2e2;
+  border: 2px solid #ef4444;
+  color: #b91c1c;
+}
+
+.status-warning {
+  background-color: #fef9c3;
+  border: 2px solid #eab308;
+  color: #a16207;
+}
+
+.result-status {
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.result-plate,
+.result-confidence,
+.result-message {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #333;
+}
+
+.error-box {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fee2e2;
+  border-radius: 6px;
+  color: #b91c1c;
+}

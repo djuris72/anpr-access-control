@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: anpr-postgres
+    environment:
+      POSTGRES_DB: access_control_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      # Podaci ostaju sacuvani i posle "docker-compose down" - bez ovoga bi
+      # se baza brisala svaki put kad se kontejneri unistavaju.
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build: ./ml-service
+    container_name: anpr-ml-service
+    ports:
+      - "8000:8000"
+    # weights/best.pt mora postojati u ml-service/weights/ PRE "docker-compose up",
+    # jer se kopira unutar image-a pri build-u (isto pravilo kao pri
+    # pojedinacnom "docker build" ranije).
+
+  backend:
+    build: ./backend
+    container_name: anpr-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Ovde koristimo IMENA SERVISA (postgres, ml-service) umesto
+      # "localhost" ili "host.docker.internal" - unutar docker-compose
+      # mreze, Docker automatski resava ta imena na prave IP adrese
+      # kontejnera. To je razlika u odnosu na pojedinacno testiranje od malopre.
+      DB_HOST: postgres
+      ML_SERVICE_HOST: ml-service
+      DB_PASSWORD: root
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ml-service:
+        condition: service_started
+
+volumes:
+  postgres-data:

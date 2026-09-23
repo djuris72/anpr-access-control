@@ -1,0 +1,25 @@
+# === ML servis (Python) ===
+ml-service/venv/
+ml-service/__pycache__/
+**/__pycache__/
+*.pyc
+ml-service/weights/*.pt
+
+# === Backend (Java/Maven) ===
+backend/target/
+backend/.idea/
+backend/*.iml
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.mvn/
+
+# === Frontend (Node) ===
+frontend/node_modules/
+frontend/dist/
+
+# === Opste ===
+.DS_Store
+venv
+*.log
+backup
